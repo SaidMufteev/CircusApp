@@ -1,0 +1,33 @@
+﻿<Page x:Class="CircusApp.ArtistPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Артист" FontFamily="Tw Cen MT"
+      Background="{StaticResource BackgroundBrush}">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" Margin="0,0,0,10">
+            <Button DockPanel.Dock="Right" Content="Выйти"
+                    Width="120" Height="35" Margin="10,0,0,0"
+                    Click="Logout_Click"/>
+            <TextBlock Text="Кабинет артиста"
+                       FontSize="26" FontWeight="Bold"
+                       Foreground="{StaticResource AccentBrush}"
+                       VerticalAlignment="Center"/>
+        </DockPanel>
+
+        <TabControl Grid.Row="1">
+            <TabItem Header="Мои представления">
+                <DataGrid Margin="10" Name="MyShowsGrid"
+                          AutoGenerateColumns="True" IsReadOnly="True"/>
+            </TabItem>
+            <TabItem Header="Моё расписание">
+                <DataGrid Margin="10" Name="MyScheduleGrid"
+                          AutoGenerateColumns="True" IsReadOnly="True"/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>

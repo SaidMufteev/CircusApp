@@ -30,6 +30,7 @@ namespace CircusApp
         public string Автор { get; set; }
         public string Жанр { get; set; }
         public string Тип { get; set; }
+        public string ImagePath { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Группа_Представления> Группа_Представления { get; set; }

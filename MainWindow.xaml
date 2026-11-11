@@ -1,12 +1,30 @@
 ﻿<Window x:Class="CircusApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CircusApp"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Цирк" Height="600" Width="900"
+        FontFamily="Tw Cen MT"
+        Icon="res/circus_logo.png"
+        Background="{StaticResource BackgroundBrush}">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <!-- Логотип и заголовок -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Source="res/circus_logo.png" Width="60" Height="60" Margin="10"/>
+            <TextBlock Text="Цирк" FontSize="30" FontWeight="Bold" 
+                       Foreground="{StaticResource AccentBrush}" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <!-- Фрейм для страниц -->
+        <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden"/>
+
+        <!-- Кнопка Назад -->
+        <Button x:Name="BtnBack" Content="Назад" Grid.Row="2" Width="100" Height="25"
+                HorizontalAlignment="Left" Margin="10,0,0,0" Click="BtnBack_Click"
+                Visibility="Hidden"/>
     </Grid>
 </Window>

@@ -1,0 +1,126 @@
+﻿<Page x:Class="CircusApp.ShowPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Представления" FontFamily="Tw Cen MT"
+      Background="{StaticResource BackgroundBrush}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Панель поиска и фильтрации + кнопка Добавить -->
+        <Grid Grid.Row="0" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <WrapPanel Grid.Column="0" Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Поиск:" FontSize="16" VerticalAlignment="Center" Margin="5"/>
+                    <TextBox Name="TBoxSearch" Width="150" FontSize="14" TextChanged="TBoxSearch_TextChanged"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Жанр:" FontSize="16" VerticalAlignment="Center" Margin="5"/>
+                    <ComboBox Name="ComboGenre" Width="130" FontSize="14" SelectionChanged="ComboGenre_SelectionChanged"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Тип:" FontSize="16" VerticalAlignment="Center" Margin="5"/>
+                    <ComboBox Name="ComboType" Width="130" FontSize="14" SelectionChanged="ComboType_SelectionChanged"/>
+                </StackPanel>
+            </WrapPanel>
+
+            <Button Grid.Column="1" Content="Добавить" Width="120" Height="30" Margin="10,5,10,5" 
+                    Click="AddButton_Click" HorizontalAlignment="Right"/>
+        </Grid>
+
+        <!-- Панель сортировки -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+            <RadioButton Name="RButtonUp" Content="По алфавиту (А–Я)" FontSize="16" 
+                         GroupName="Sort" Checked="RButtonUp_Checked" Margin="10"/>
+            <RadioButton Name="RButtonDown" Content="По алфавиту (Я–А)" FontSize="16" 
+                         GroupName="Sort" Checked="RButtonDown_Checked" Margin="10"/>
+        </StackPanel>
+
+        <!-- Список представлений -->
+        <ListView Name="ShowListView" Grid.Row="2" Margin="10">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="{StaticResource GoldBrush}" BorderThickness="1" 
+                            Margin="2" Padding="8" Background="{StaticResource BackgroundBrush}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Изображение с заглушкой -->
+                            <Image Grid.Column="0" Width="100" Height="100" Stretch="UniformToFill" 
+                                   HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image.Source>
+                                    <Binding Path="ImagePath">
+                                        <Binding.TargetNullValue>
+                                            <ImageSource>res/image/picture.png</ImageSource>
+                                        </Binding.TargetNullValue>
+                                    </Binding>
+                                </Image.Source>
+                            </Image>
+
+                            <!-- Информация о представлении -->
+                            <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                                <TextBlock Text="{Binding Название}" FontSize="20" FontWeight="Bold" 
+                                           Foreground="{StaticResource AccentBrush}" Margin="0,0,0,5"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Жанр: " FontSize="14" FontWeight="Bold" 
+                                               Foreground="{StaticResource TextBrush}"/>
+                                    <TextBlock Text="{Binding Жанр}" FontSize="14" 
+                                               Foreground="{StaticResource TextBrush}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Тип: " FontSize="14" FontWeight="Bold" 
+                                               Foreground="{StaticResource TextBrush}"/>
+                                    <TextBlock Text="{Binding Тип}" FontSize="14" 
+                                               Foreground="{StaticResource TextBrush}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Автор: " FontSize="14" FontWeight="Bold" 
+                                               Foreground="{StaticResource TextBrush}"/>
+                                    <TextBlock Text="{Binding Автор}" FontSize="14" 
+                                               Foreground="{StaticResource TextBrush}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                    <Button Content="Редактировать" Width="120" Height="25" Margin="0,0,10,0" 
+                                            Click="EditButton_Click" Background="#FF333333" Foreground="White"/>
+                                    <Button Content="Удалить" Width="100" Height="25" 
+                                            Click="DeleteButton_Click" Background="#FF8B0000" Foreground="White"/>
+                                    <Button Content="Купить билет" Width="120" Height="25" Margin="10,0,0,0" 
+                                            Click="BuyButton_Click" Background="#FF1A9CFF" Foreground="White"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- Панель постраничного вывода -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+            <TextBlock Name="TBCount" FontSize="16" VerticalAlignment="Center" Margin="5"/>
+            <TextBlock Text="из" FontSize="16" VerticalAlignment="Center" Margin="2"/>
+            <TextBlock Name="TBAllRecords" FontSize="16" VerticalAlignment="Center" Margin="5"/>
+            <Button Name="LeftDirButton" Content="&lt;" Width="30" Height="30" Click="LeftDirButton_Click" Margin="5"/>
+            <ListBox Name="PageListBox" Width="150" Height="30" MouseUp="PageListBox_MouseUp" 
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+            <Button Name="RightDirButton" Content="&gt;" Width="30" Height="30" Click="RightDirButton_Click" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</Page>

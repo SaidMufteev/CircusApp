@@ -1,0 +1,66 @@
+﻿<Page x:Class="CircusApp.CashierPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Кассир" FontFamily="Tw Cen MT"
+      Background="{StaticResource BackgroundBrush}">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" Margin="0,0,0,10">
+            <Button DockPanel.Dock="Right" Content="Выйти" Width="120" Height="35" Margin="10,0,0,0" Click="Logout_Click"/>
+            <TextBlock Text="Панель кассира" FontSize="26" FontWeight="Bold" Foreground="{StaticResource AccentBrush}" VerticalAlignment="Center"/>
+        </DockPanel>
+
+        <TabControl Grid.Row="1">
+            <TabItem Header="Оформить заказ">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Клиент:" VerticalAlignment="Center" Margin="0,6"/>
+                    <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="0,6">
+                        <ComboBox Name="ClientCB" Width="300" DisplayMemberPath="Фамилия"/>
+                        <Button Content="Новый клиент" Width="130" Height="26" Margin="10,0,0,0" Click="NewClientBtn_Click"/>
+                    </StackPanel>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Сеанс:" VerticalAlignment="Center" Margin="0,6"/>
+                    <ComboBox Grid.Row="1" Grid.Column="1" Name="SessionCB" Width="300" HorizontalAlignment="Left" Margin="0,6" DisplayMemberPath="Дата_начала"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Кол-во билетов:" VerticalAlignment="Center" Margin="0,6"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Name="TicketsTB" Width="100" HorizontalAlignment="Left" Margin="0,6"/>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Цена за 1:" VerticalAlignment="Center" Margin="0,6"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" Name="PriceTB" Width="100" HorizontalAlignment="Left" Margin="0,6" Text="1000"/>
+
+                    <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Сохранить заказ" Width="200" Height="40" Margin="0,15,0,0" HorizontalAlignment="Left" Click="SaveOrderBtn_Click"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Мои заказы за смену">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                        <Button Content="Отменить заказ" Width="160" Height="32" Click="CancelOrderBtn_Click"/>
+                    </StackPanel>
+                    <DataGrid Grid.Row="1" Name="MyOrdersGrid" AutoGenerateColumns="True" IsReadOnly="True"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>

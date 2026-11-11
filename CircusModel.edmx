@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище CircusModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище CircusModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Билеты">
           <Key>
             <PropertyRef Name="ID_Билета" />
@@ -79,6 +79,7 @@
           <Property Name="Автор" Type="nvarchar" MaxLength="100" />
           <Property Name="Жанр" Type="nvarchar" MaxLength="50" />
           <Property Name="Тип" Type="nvarchar" MaxLength="50" />
+          <Property Name="ImagePath" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Программа">
           <Key>
@@ -386,8 +387,7 @@
             <End Role="Расписание_Гастролей" EntitySet="Расписание_Гастролей" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CircusModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -484,6 +484,7 @@
           <NavigationProperty Name="Работники2" Relationship="Self.FK_Представления_Художник" FromRole="Представления" ToRole="Работники" />
           <NavigationProperty Name="Программа" Relationship="Self.FK_Программа_Представление" FromRole="Представления" ToRole="Программа" />
           <NavigationProperty Name="Расписание_Гастролей" Relationship="Self.FK_Расписание_Представления" FromRole="Представления" ToRole="Расписание_Гастролей" />
+          <Property Name="ImagePath" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Программа">
           <Key>
@@ -879,6 +880,7 @@
           <EntitySetMapping Name="Представления">
             <EntityTypeMapping TypeName="CircusModel.Представления">
               <MappingFragment StoreEntitySet="Представления">
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
                 <ScalarProperty Name="ID_Представления" ColumnName="ID_Представления" />
                 <ScalarProperty Name="Название" ColumnName="Название" />
                 <ScalarProperty Name="ID_Режиссера" ColumnName="ID_Режиссера" />
