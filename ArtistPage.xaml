@@ -10,23 +10,30 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="0" Margin="0,0,0,10">
-            <Button DockPanel.Dock="Right" Content="Выйти"
-                    Width="120" Height="35" Margin="10,0,0,0"
-                    Click="Logout_Click"/>
-            <TextBlock Text="Кабинет артиста"
-                       FontSize="26" FontWeight="Bold"
-                       Foreground="{StaticResource AccentBrush}"
-                       VerticalAlignment="Center"/>
+            <Button DockPanel.Dock="Right" Content="Выйти" Width="120" Height="35" Margin="10,0,0,0" Click="Logout_Click"/>
+            <TextBlock Text="Кабинет артиста" FontSize="26" FontWeight="Bold" Foreground="{StaticResource AccentBrush}" VerticalAlignment="Center"/>
         </DockPanel>
 
         <TabControl Grid.Row="1">
             <TabItem Header="Мои представления">
-                <DataGrid Margin="10" Name="MyShowsGrid"
-                          AutoGenerateColumns="True" IsReadOnly="True"/>
+                <DataGrid Margin="10" Name="MyShowsGrid" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding ID_Представления}" Width="50"/>
+                        <DataGridTextColumn Header="Название" Binding="{Binding Название}" Width="*"/>
+                        <DataGridTextColumn Header="Жанр" Binding="{Binding Жанр}" Width="150"/>
+                        <DataGridTextColumn Header="Автор" Binding="{Binding Автор}" Width="150"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </TabItem>
             <TabItem Header="Моё расписание">
-                <DataGrid Margin="10" Name="MyScheduleGrid"
-                          AutoGenerateColumns="True" IsReadOnly="True"/>
+                <DataGrid Margin="10" Name="MyScheduleGrid" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID Гастроли" Binding="{Binding ID_Гастроли}" Width="80"/>
+                        <DataGridTextColumn Header="ID Представления" Binding="{Binding ID_Представления}" Width="*"/>
+                        <DataGridTextColumn Header="Дата начала" Binding="{Binding Дата_начала}" Width="150"/>
+                        <DataGridTextColumn Header="Дата окончания" Binding="{Binding Дата_окончания}" Width="150"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </TabItem>
         </TabControl>
     </Grid>

@@ -64,11 +64,6 @@ namespace CircusApp
             }
         }
 
-        private void TicketsTB_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            // Можно добавить авто-расчет, если нужно
-        }
-
         private void BuyBtn_Click(object sender, RoutedEventArgs e)
         {
             if (SessionCB.SelectedItem == null || !int.TryParse(TicketsTB.Text, out int tickets) ||
@@ -84,7 +79,6 @@ namespace CircusApp
                 {
                     var session = (Расписание_Гастролей)SessionCB.SelectedItem;
 
-                    // 1. Создаем заказ
                     var order = new Заказы
                     {
                         ID_Клиента = CurrentUser.ID_Клиента.Value,
@@ -93,13 +87,12 @@ namespace CircusApp
                         Статус = "Оплачен"
                     };
                     context.Заказы.Add(order);
-                    context.SaveChanges(); // Сохраняем, чтобы получить ID_Заказа
+                    context.SaveChanges();
 
-                    // 2. Создаем билет, привязанный к заказу
                     var ticket = new Билеты
                     {
                         ID_Заказа = order.ID_Заказа,
-                        ID_Сеанса = session.ID_Гастроли, // Связываем с расписанием
+                        ID_Сеанса = session.ID_Гастроли,
                         Количество = tickets,
                         Цена = price
                     };

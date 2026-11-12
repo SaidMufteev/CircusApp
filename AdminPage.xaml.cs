@@ -31,20 +31,20 @@ namespace CircusApp
                     TotalShowsTB.Text = $"Представлений: {context.Представления.Count()}";
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ошибка загрузки: " + ex.Message);
-            }
+            catch (Exception ex) { MessageBox.Show("Ошибка загрузки: " + ex.Message); }
         }
 
-        // ---- Пользователи ----
-        private void AddUserBtn_Click(object sender, RoutedEventArgs e) =>
-            MessageBox.Show("Форма добавления пользователя (TODO)");
+        private void AddUserBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new UserEditWindow();
+            if (win.ShowDialog() == true) LoadData();
+        }
 
         private void EditUserBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (UsersGrid.SelectedItem == null) { MessageBox.Show("Выберите пользователя."); return; }
-            MessageBox.Show("Форма редактирования пользователя (TODO)");
+            if (UsersGrid.SelectedItem == null) return;
+            var win = new UserEditWindow((Пользователи)UsersGrid.SelectedItem);
+            if (win.ShowDialog() == true) LoadData();
         }
 
         private void ToggleUserBtn_Click(object sender, RoutedEventArgs e)
@@ -63,21 +63,23 @@ namespace CircusApp
             catch (Exception ex) { MessageBox.Show("Ошибка: " + ex.Message); }
         }
 
-        // ---- Представления ----
-        private void AddShowBtn_Click(object sender, RoutedEventArgs e) =>
-            MessageBox.Show("Форма добавления представления (TODO)");
+        private void AddShowBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new ShowEditWindow();
+            if (win.ShowDialog() == true) LoadData();
+        }
 
         private void EditShowBtn_Click(object sender, RoutedEventArgs e)
         {
             if (ShowsGrid.SelectedItem == null) return;
-            MessageBox.Show("Форма редактирования представления (TODO)");
+            var win = new ShowEditWindow((Представления)ShowsGrid.SelectedItem);
+            if (win.ShowDialog() == true) LoadData();
         }
 
         private void DeleteShowBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (ShowsGrid.SelectedItem == null) { MessageBox.Show("Выберите представление."); return; }
-            if (MessageBox.Show("Удалить выбранное представление?", "Подтверждение",
-                MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+            if (ShowsGrid.SelectedItem == null) return;
+            if (MessageBox.Show("Удалить представление?", "Подтверждение", MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
             try
             {
                 var sel = (Представления)ShowsGrid.SelectedItem;
@@ -91,21 +93,23 @@ namespace CircusApp
             catch (Exception ex) { MessageBox.Show("Ошибка удаления: " + ex.Message); }
         }
 
-        // ---- Работники ----
-        private void AddWorkerBtn_Click(object sender, RoutedEventArgs e) =>
-            MessageBox.Show("Форма добавления работника (TODO)");
+        private void AddWorkerBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new WorkerEditWindow();
+            if (win.ShowDialog() == true) LoadData();
+        }
 
         private void EditWorkerBtn_Click(object sender, RoutedEventArgs e)
         {
             if (WorkersGrid.SelectedItem == null) return;
-            MessageBox.Show("Форма редактирования работника (TODO)");
+            var win = new WorkerEditWindow((Работники)WorkersGrid.SelectedItem);
+            if (win.ShowDialog() == true) LoadData();
         }
 
         private void DeleteWorkerBtn_Click(object sender, RoutedEventArgs e)
         {
             if (WorkersGrid.SelectedItem == null) return;
-            if (MessageBox.Show("Удалить работника?", "Подтверждение",
-                MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+            if (MessageBox.Show("Удалить работника?", "Подтверждение", MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
             try
             {
                 var sel = (Работники)WorkersGrid.SelectedItem;
@@ -119,22 +123,23 @@ namespace CircusApp
             catch (Exception ex) { MessageBox.Show("Ошибка удаления: " + ex.Message); }
         }
 
-        // ---- Гастроли ----
-        private void AddTourBtn_Click(object sender, RoutedEventArgs e) =>
-            MessageBox.Show("Форма добавления гастроли/сеанса (TODO)");
+        private void AddTourBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new ScheduleEditWindow();
+            if (win.ShowDialog() == true) LoadData();
+        }
 
         private void EditTourBtn_Click(object sender, RoutedEventArgs e)
         {
             if (ToursGrid.SelectedItem == null) return;
-            MessageBox.Show("Форма редактирования гастроли/сеанса (TODO)");
+            var win = new ScheduleEditWindow((Расписание_Гастролей)ToursGrid.SelectedItem);
+            if (win.ShowDialog() == true) LoadData();
         }
 
-        // ---- Заказы ----
         private void CancelOrderBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (OrdersGrid.SelectedItem == null) { MessageBox.Show("Выберите заказ."); return; }
-            if (MessageBox.Show("Отменить выбранный заказ?", "Подтверждение",
-                MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+            if (OrdersGrid.SelectedItem == null) return;
+            if (MessageBox.Show("Отменить заказ?", "Подтверждение", MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
             try
             {
                 var sel = (Заказы)OrdersGrid.SelectedItem;

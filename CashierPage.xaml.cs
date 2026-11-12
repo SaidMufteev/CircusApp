@@ -34,7 +34,6 @@ namespace CircusApp
                 using (var context = new CircusEntities())
                 {
                     var today = DateTime.Today;
-                    // Так как в Заказах нет ID_Кассира, показываем все заказы за сегодня
                     MyOrdersGrid.ItemsSource = context.Заказы
                         .Where(o => o.Дата_заказа >= today)
                         .ToList();
@@ -43,8 +42,15 @@ namespace CircusApp
             catch (Exception ex) { MessageBox.Show("Ошибка загрузки: " + ex.Message); }
         }
 
-        private void NewClientBtn_Click(object sender, RoutedEventArgs e) =>
-            MessageBox.Show("Форма быстрого создания клиента (TODO)");
+        private void NewClientBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new ClientEditWindow();
+            if (win.ShowDialog() == true)
+            {
+                LoadClients();
+                ClientCB.SelectedValue = win.NewClientId;
+            }
+        }
 
         private void SaveOrderBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -63,7 +69,6 @@ namespace CircusApp
                     var client = (Клиенты)ClientCB.SelectedItem;
                     var session = (Расписание_Гастролей)SessionCB.SelectedItem;
 
-                    // 1. Создаем Заказ
                     var order = new Заказы
                     {
                         ID_Клиента = client.ID_Клиента,
@@ -72,9 +77,8 @@ namespace CircusApp
                         Статус = "Оформлен"
                     };
                     context.Заказы.Add(order);
-                    context.SaveChanges(); // Сохраняем, чтобы получить ID
+                    context.SaveChanges();
 
-                    // 2. Создаем Билет
                     var ticket = new Билеты
                     {
                         ID_Заказа = order.ID_Заказа,
@@ -85,7 +89,7 @@ namespace CircusApp
                     context.Билеты.Add(ticket);
                     context.SaveChanges();
                 }
-                MessageBox.Show("Заказ и билеты успешно созданы.");
+                MessageBox.Show("Заказ успешно создан.");
                 TicketsTB.Text = "";
                 LoadMyOrders();
             }
@@ -96,7 +100,6 @@ namespace CircusApp
         {
             if (MyOrdersGrid.SelectedItem == null) { MessageBox.Show("Выберите заказ."); return; }
             if (MessageBox.Show("Отменить заказ?", "Подтверждение", MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
-
             try
             {
                 var sel = (Заказы)MyOrdersGrid.SelectedItem;

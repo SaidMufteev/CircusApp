@@ -10,17 +10,11 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="0" Margin="0,0,0,10">
-            <Button DockPanel.Dock="Right" Content="Выйти"
-                    Width="120" Height="35" Margin="10,0,0,0"
-                    Click="Logout_Click"/>
-            <TextBlock Text="Панель менеджера"
-                       FontSize="26" FontWeight="Bold"
-                       Foreground="{StaticResource AccentBrush}"
-                       VerticalAlignment="Center"/>
+            <Button DockPanel.Dock="Right" Content="Выйти" Width="120" Height="35" Margin="10,0,0,0" Click="Logout_Click"/>
+            <TextBlock Text="Панель менеджера" FontSize="26" FontWeight="Bold" Foreground="{StaticResource AccentBrush}" VerticalAlignment="Center"/>
         </DockPanel>
 
         <TabControl Grid.Row="1">
-
             <TabItem Header="Представления">
                 <Grid Margin="10">
                     <Grid.RowDefinitions>
@@ -28,15 +22,18 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
-                        <Button Content="Добавить" Width="110" Height="32" Margin="0,0,8,0"
-                                Click="AddShowBtn_Click"/>
-                        <Button Content="Редактировать" Width="120" Height="32" Margin="0,0,8,0"
-                                Click="EditShowBtn_Click"/>
-                        <Button Content="Удалить" Width="110" Height="32"
-                                Click="DeleteShowBtn_Click"/>
+                        <Button Content="Добавить" Width="110" Height="32" Margin="0,0,8,0" Click="AddShowBtn_Click"/>
+                        <Button Content="Редактировать" Width="120" Height="32" Margin="0,0,8,0" Click="EditShowBtn_Click"/>
+                        <Button Content="Удалить" Width="110" Height="32" Click="DeleteShowBtn_Click"/>
                     </StackPanel>
-                    <DataGrid Grid.Row="1" Name="ShowsGrid"
-                              AutoGenerateColumns="True" IsReadOnly="True"/>
+                    <DataGrid Grid.Row="1" Name="ShowsGrid" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding ID_Представления}" Width="50"/>
+                            <DataGridTextColumn Header="Название" Binding="{Binding Название}" Width="*"/>
+                            <DataGridTextColumn Header="Автор" Binding="{Binding Автор}" Width="150"/>
+                            <DataGridTextColumn Header="Жанр" Binding="{Binding Жанр}" Width="100"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
 
@@ -47,37 +44,52 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
-                        <Button Content="Добавить" Width="110" Height="32" Margin="0,0,8,0"
-                                Click="AddTourBtn_Click"/>
-                        <Button Content="Редактировать" Width="120" Height="32"
-                                Click="EditTourBtn_Click"/>
+                        <Button Content="Добавить" Width="110" Height="32" Margin="0,0,8,0" Click="AddTourBtn_Click"/>
+                        <Button Content="Редактировать" Width="120" Height="32" Click="EditTourBtn_Click"/>
                     </StackPanel>
-                    <DataGrid Grid.Row="1" Name="ToursGrid"
-                              AutoGenerateColumns="True" IsReadOnly="True"/>
+                    <DataGrid Grid.Row="1" Name="ToursGrid" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID Гастроли" Binding="{Binding ID_Гастроли}" Width="80"/>
+                            <DataGridTextColumn Header="ID Представления" Binding="{Binding ID_Представления}" Width="*"/>
+                            <DataGridTextColumn Header="Дата начала" Binding="{Binding Дата_начала}" Width="150"/>
+                            <DataGridTextColumn Header="Дата окончания" Binding="{Binding Дата_окончания}" Width="150"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
 
             <TabItem Header="Работники (просмотр)">
-                <DataGrid Margin="10" Name="WorkersGrid"
-                          AutoGenerateColumns="True" IsReadOnly="True"/>
+                <DataGrid Margin="10" Name="WorkersGrid" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding ID_Работника}" Width="50"/>
+                        <DataGridTextColumn Header="Фамилия" Binding="{Binding Фамилия}" Width="*"/>
+                        <DataGridTextColumn Header="Имя" Binding="{Binding Имя}" Width="*"/>
+                        <DataGridTextColumn Header="Должность" Binding="{Binding Должность}" Width="150"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </TabItem>
 
             <TabItem Header="Заказы (просмотр)">
-                <DataGrid Margin="10" Name="OrdersGrid"
-                          AutoGenerateColumns="True" IsReadOnly="True"/>
+                <DataGrid Margin="10" Name="OrdersGrid" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID Заказа" Binding="{Binding ID_Заказа}" Width="80"/>
+                        <DataGridTextColumn Header="ID Клиента" Binding="{Binding ID_Клиента}" Width="*"/>
+                        <DataGridTextColumn Header="Дата" Binding="{Binding Дата_заказа}" Width="150"/>
+                        <DataGridTextColumn Header="Сумма" Binding="{Binding Сумма}" Width="100"/>
+                        <DataGridTextColumn Header="Статус" Binding="{Binding Статус}" Width="120"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </TabItem>
 
             <TabItem Header="Аналитика">
                 <StackPanel Margin="20">
-                    <TextBlock Text="Сводка по продажам"
-                               FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+                    <TextBlock Text="Сводка по продажам" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
                     <TextBlock Name="TotalOrdersTB" Text="Заказов: —" FontSize="14" Margin="0,0,0,6"/>
                     <TextBlock Name="TotalRevenueTB" Text="Выручка: —" FontSize="14" Margin="0,0,0,6"/>
                     <TextBlock Name="TotalClientsTB" Text="Клиентов: —" FontSize="14" Margin="0,0,0,6"/>
                     <TextBlock Name="TotalShowsTB" Text="Представлений: —" FontSize="14"/>
                 </StackPanel>
             </TabItem>
-
         </TabControl>
     </Grid>
 </Page>
